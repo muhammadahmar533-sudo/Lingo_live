@@ -1,16 +1,27 @@
 name: Build APK
-on: [workflow_dispatch]
+
+on:
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 18
-      - run: npm install
-      - run: npm install -g eas-cli
-      - run: eas build --platform android --profile preview --non-interactive
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
+
+      - name: Build APK with EAS
+        run: eas build --platform android --profile preview --non-interactive
         env:
-          EXPO_TOKEN: ${{ 3fz9ugHQI3mXvWzo12C7Xf7m9IEeu56PoPxWj6Zz }}
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
