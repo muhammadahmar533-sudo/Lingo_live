@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "LingoLive",
+    "slug": "lingo-live",
+    "platforms": ["android", "ios"],
+    "android": {
+      "package": "com.muhammadahmar533.lingolive"
+    }
+  }
+}
