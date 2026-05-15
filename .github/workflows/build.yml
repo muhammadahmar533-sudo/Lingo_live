@@ -32,10 +32,10 @@ jobs:
       - name: Build APK with EAS
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: eas build --platform android --profile preview --non-interactive --output ./app.apk
+        run: eas build --platform android --profile preview --non-interactive --json > build-result.json
 
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-apk
-          path: ./app.apk
+      - name: Download APK
+        run: |
+          APK_URL=$(cat build-result.json | grep -o '"url":"[^"]*"' | head -1 | cut -d'"' -f4)
+          echo "Downloading APK from: $APK_URL"
+          curl -o app.apk $AP
